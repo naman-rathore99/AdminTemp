@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
-export default async function OnboardingLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -17,6 +17,6 @@ export default async function OnboardingLayout({
   }
 
   return (
-    children
+    <>{children}</>
   );
 }
