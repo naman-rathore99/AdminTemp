@@ -8,6 +8,8 @@ import Link from "next/link";
 import "./globals.css";
 import { Inter as FontSans } from "next/font/google"
 import { cn } from "@/lib/utils"
+
+export const runtime = "edge";
  
 const fontSans = FontSans({
   subsets: ["latin"],
