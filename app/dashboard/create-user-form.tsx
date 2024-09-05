@@ -3,6 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
+import { useFormState } from "react-dom";
+
 import {
   Form,
   FormControl,
@@ -15,9 +17,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { NewUserSchema, type NewUser } from "@/schemas/new-user.schema";
 import { useRef } from "react";
+import { createUser } from "./actions";
  
 
 export function CreateUserForm() {
+  const [formState, createUserAction] = useFormState(createUser, {});
+
     const form = useForm<NewUser>({
         resolver: zodResolver(NewUserSchema),
         defaultValues: {
@@ -30,7 +35,7 @@ export function CreateUserForm() {
       }
       return (    
       <Form {...form}>
-        <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form action={createUserAction} ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
             name="username"
