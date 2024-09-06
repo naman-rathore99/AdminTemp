@@ -4,7 +4,7 @@ import { VideoService } from "@/utils/belive-api/video-service";
 import { NewUser, NewUserSchema } from "@/schemas/new-user.schema";
 export async function getUrlFromVideo(fileName: string, fileType: string) {
     try {
-        const url = await VideoService.getUploadLink(fileName);
+        const url = await VideoService.getUploadLink(fileName, fileType);
         console.log('filename', fileName );
         console.log('url', url);
         return url;
