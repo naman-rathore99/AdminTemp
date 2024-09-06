@@ -28,7 +28,7 @@ export function VideoUpload() {
     const handleChange = async (fileList: FileList) => {
         for(let i = 0; i < fileList.length; i++) {
         const file = fileList[i];
-        const url = await getUrlFromVideo(file.name);
+        const url = await getUrlFromVideo(file.name, file.type);
         const newUploadProgress = { ...uploadProgress, [file.name]: { progress: 0, name: file.name}};
         setUploadProgress((prev) => ({...prev, ...newUploadProgress}));
         axios.put(url, file, {

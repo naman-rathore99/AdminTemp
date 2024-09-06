@@ -21,7 +21,7 @@ import { createUser } from "./actions";
  
 
 export function CreateUserForm() {
-  const [formState, createUserAction] = useFormState(createUser, {});
+  const [formState, createUserAction] = useFormState<any, any>(createUser, { errors: {} }, "");
 
     const form = useForm<NewUser>({
         resolver: zodResolver(NewUserSchema),
