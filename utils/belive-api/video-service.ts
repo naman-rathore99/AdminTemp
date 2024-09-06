@@ -4,11 +4,11 @@ class VideoServiceClass extends WithAuth {
     HOST = process.env.BELIVE_API ?? "http://localhost:3001";
     BASE_URL = `${this.HOST}/vods`;
 
-   public async getUploadLink(filename: string, fileType: string) {
+   public async getUploadLink(fileName: string, fileType: string) {
         const URL = `${this.BASE_URL}/upload`;
         const response = await this.fetch(URL, {
             method: "POST",
-            body: JSON.stringify({filename, fileType}),
+            body: JSON.stringify({fileName, fileType}),
             headers: {
                 "Content-Type": "application/json"
             }
