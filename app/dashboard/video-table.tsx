@@ -13,7 +13,9 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { deleteVod } from "./actions";
 
   interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -24,13 +26,27 @@ import {
     columns,
     data,
   }: DataTableProps<TData, TValue>) {
+    const [rowSelection, setRowSelection] = useState({})
     const table = useReactTable({
       data,
       columns,
       getCoreRowModel: getCoreRowModel(),
+      onRowSelectionChange: setRowSelection,
+      getRowId: row => (row as any).id,
+      state: {
+        rowSelection
+      }
     })
+    const deleteVideos = async () => {
+      const promises = [];
+      for(const key in rowSelection) {
+          promises.push(deleteVod(key));
+    }
+    await Promise.all(promises);
+}
    
     return (
+      <>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -74,6 +90,11 @@ import {
             )}
           </TableBody>
         </Table>
+        
       </div>
+      <div>
+        {Object.keys(rowSelection).length > 0 && <Button onClick={() => deleteVideos()}>Delete</Button>}
+      </div>
+      </>
     )
   }

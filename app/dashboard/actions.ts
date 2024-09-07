@@ -2,6 +2,7 @@
 import { UserService } from "@/utils/belive-api/user-service";
 import { VideoService } from "@/utils/belive-api/video-service";
 import { NewUser, NewUserSchema } from "@/schemas/new-user.schema";
+import { revalidatePath } from "next/cache";
 export async function getUrlFromVideo(fileName: string, fileType: string) {
     try {
         const url = await VideoService.getUploadLink(fileName, fileType);
@@ -23,4 +24,9 @@ export async function createUser(prevState: any, form: FormData) {
         return results.error.flatten();
     }
     await UserService.createUser(results.data);
+}
+
+export async function deleteVod(id: string) {
+    await VideoService.deleteVodById(id);
+    revalidatePath('/dashboard');
 }
