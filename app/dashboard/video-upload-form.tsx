@@ -1,14 +1,12 @@
 'use client';
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { FileUploader } from "react-drag-drop-files";
 import { useState } from "react";
 import { getUrlFromVideo } from "./actions";
 import axios from "axios";
 import { Progress } from "@/components/ui/progress"
+import { useRouter } from "next/navigation";
 
 function UploadBox() {
     return (
@@ -25,30 +23,36 @@ type UploadProgress = {
 }
 export function VideoUpload() {
     const [uploadProgress, setUploadProgress] = useState<Record<string,UploadProgress>>({});
+    const [uploadDisabled, setUploadDsiabled] = useState(false);
+    const router = useRouter();
     const handleChange = async (fileList: FileList) => {
+        const promises = [];
+        setUploadDsiabled(true);
         for(let i = 0; i < fileList.length; i++) {
         const file = fileList[i];
         const url = await getUrlFromVideo(file.name, file.type);
         const newUploadProgress = { ...uploadProgress, [file.name]: { progress: 0, name: file.name}};
         setUploadProgress((prev) => ({...prev, ...newUploadProgress}));
-        axios.put(url, file, {
+        promises.push(axios.put(url, file, {
             headers: {
               'Content-Type': file.type,
             },
             onUploadProgress: ({total = 1, loaded}) => {
                   const percentCompleted = Math.round((loaded * 100) / total);
-                  console.log('upload progress ' + percentCompleted);
                   const newUploadProgress = { ...uploadProgress, [file.name]: { progress: percentCompleted, name: file.name}};
                   setUploadProgress((prev) => ({...prev, ...newUploadProgress}));
                 }
-          });
+          }));
         }
+        await Promise.all(promises);
+        await router.refresh();
+        setUploadProgress({});
     };
   return (
     <>
     <Card>
       <CardContent className="p-6 space-y-4">
-      <FileUploader type={['video/*']} multiple={true} handleChange={handleChange} children={<UploadBox />} />
+      <FileUploader disabled={uploadDisabled}  type={['video/*']} multiple={true} handleChange={handleChange} children={<UploadBox />} />
         
       </CardContent>
     </Card>
