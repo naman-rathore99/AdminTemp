@@ -24,6 +24,7 @@ export async function createUser(prevState: any, form: FormData) {
         return results.error.flatten();
     }
     await UserService.createUser(results.data);
+    revalidatePath('/dashboard');
 }
 
 export async function deleteVod(id: string) {

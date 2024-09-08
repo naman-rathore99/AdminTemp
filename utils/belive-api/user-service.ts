@@ -19,7 +19,6 @@ class UserServiceClass extends WithAuth {
                 "Content-Type": "application/json"
             }
         });
-        return await response.json();
     }
     public async updateUser(user: NewUser) {
         const URL = `${this.BASE_URL}/me`;

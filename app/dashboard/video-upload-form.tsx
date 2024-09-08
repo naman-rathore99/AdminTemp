@@ -13,7 +13,7 @@ function UploadBox() {
         <div className="border-2 border-dashed border-gray-200 rounded-lg flex flex-col gap-1 p-6 items-center">
         <FileIcon className="w-12 h-12" />
         <span className="text-sm font-medium text-gray-500">Drag and drop a file or click to browse</span>
-        <span className="text-xs text-gray-500">PDF, image, video, or audio</span>
+        <span className="text-xs text-gray-500">Video files only 'mp4','mov','webm','ogg','mpeg','3gp','avi'</span>
       </div>
     )
 }
