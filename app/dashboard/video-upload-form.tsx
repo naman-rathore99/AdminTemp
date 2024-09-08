@@ -23,11 +23,11 @@ type UploadProgress = {
 }
 export function VideoUpload() {
     const [uploadProgress, setUploadProgress] = useState<Record<string,UploadProgress>>({});
-    const [uploadDisabled, setUploadDsiabled] = useState(false);
+    const [uploadDisabled, setUploadDisabled] = useState(false);
     const router = useRouter();
     const handleChange = async (fileList: FileList) => {
         const promises = [];
-        setUploadDsiabled(true);
+        setUploadDisabled(true);
         for(let i = 0; i < fileList.length; i++) {
         const file = fileList[i];
         const url = await getUrlFromVideo(file.name, file.type);
@@ -47,21 +47,26 @@ export function VideoUpload() {
         await Promise.all(promises);
         await router.refresh();
         setUploadProgress({});
+        setUploadDisabled(false);
     };
   return (
     <>
+    { !uploadDisabled && 
     <Card>
       <CardContent className="p-6 space-y-4">
-      <FileUploader disabled={uploadDisabled}  type={['video/*']} multiple={true} handleChange={handleChange} children={<UploadBox />} />
+      <FileUploader disabled={uploadDisabled}  types={['mp4','mov','webm','ogg','mpeg','3gp','avi']} multiple={true} handleChange={handleChange} children={<UploadBox />} /> 
         
       </CardContent>
     </Card>
+}
     <div>
             <div  className="flex flex-col items-center gap-2">
          {Object.values(uploadProgress).map((upload, index) => (
             <div key={index} className="w-max">
                     <span>{upload.name}</span>
-                    <Progress value={upload.progress} />
+                    {upload.progress < 100 &&
+                    <Progress value={upload.progress} /> }
+                    {upload.progress === 100 && <span>Complete!</span>}
                 </div>
          ))}
                 
