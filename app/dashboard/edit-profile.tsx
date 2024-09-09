@@ -5,9 +5,10 @@ import EditableAvatar from "./editable-avatar";
 import { Button } from "@/components/ui/button";
 import { getAvatarUploadUrl } from "./actions";
 
-export function EditProfile(user: any) {
+export function EditProfile({user}: {user: any}) {
   const [isEditing, setIsEditing] = useState(false);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const STATIC_URL = 'https://static.joinbelive.com/';
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -30,7 +31,7 @@ export function EditProfile(user: any) {
     <>
     <div className="flex gap-6 items-center w-screen mb-4">
         <div className="flex justify-between items-center gap-6">
-            <EditableAvatar src={user.avatar} isEditing={isEditing} setAvatarFile={setAvatarFile} />
+            <EditableAvatar src={STATIC_URL + user.avatar} isEditing={isEditing} setAvatarFile={setAvatarFile} />
             {!isEditing && <p > {user.username ?? 'test'}</p> }
         </div>
       {!isEditing && <Button onClick={ () => handleEditClick()}>Edit Profile</Button> }
