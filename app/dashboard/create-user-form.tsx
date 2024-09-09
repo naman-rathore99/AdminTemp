@@ -17,11 +17,11 @@ import {
 import { Input } from "@/components/ui/input"
 import { NewUserSchema, type NewUser } from "@/schemas/new-user.schema";
 import { useRef } from "react";
-import { createUser } from "./actions";
+import { updateUser } from "./actions";
  
 
 export function CreateUserForm() {
-  const [formState, createUserAction] = useFormState<any, any>(createUser, { errors: {} }, "");
+  const [formState, createUserAction] = useFormState<any, any>(updateUser, { errors: {} }, "");
 
     const form = useForm<NewUser>({
         resolver: zodResolver(NewUserSchema),

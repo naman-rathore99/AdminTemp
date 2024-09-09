@@ -31,6 +31,18 @@ class UserServiceClass extends WithAuth {
         });
         return await response.json();
     }
+    public async getAvatarUploadUrl(fileType: string) {
+        const URL = `${this.BASE_URL}/avatar`;
+        const response = await this.fetch(URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ fileType })
+
+        });
+        return await response.text();
+    }
 }
 
 export const UserService = new UserServiceClass();
