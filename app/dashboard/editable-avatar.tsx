@@ -2,8 +2,7 @@
 
 import { useState, ChangeEvent } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { set } from 'zod'
+
 
 export default function EditableAvatar({src, isEditing, setAvatarFile} : {src: string, isEditing: boolean, setAvatarFile: (file: File) => void}) {
   const [avatarSrc, setAvatarSrc] = useState(src)
@@ -27,7 +26,7 @@ export default function EditableAvatar({src, isEditing, setAvatarFile} : {src: s
       <div className="relative">
         <Avatar className="h-24 w-24">
           <AvatarImage src={avatarSrc} alt="User avatar" />
-          <AvatarFallback>UN</AvatarFallback>
+          <AvatarFallback>BeLive</AvatarFallback>
         </Avatar>
         {isEditing && (
           <label htmlFor="avatar-upload" className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 cursor-pointer rounded-full">
