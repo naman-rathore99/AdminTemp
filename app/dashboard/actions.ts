@@ -3,6 +3,8 @@ import { UserService } from "@/utils/belive-api/user-service";
 import { VideoService } from "@/utils/belive-api/video-service";
 import { NewUser, NewUserSchema } from "@/schemas/new-user.schema";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
+
 export async function getUrlFromVideo(fileName: string, fileType: string) {
     try {
         const url = await VideoService.getUploadLink(fileName, fileType);
@@ -15,12 +17,13 @@ export async function getUrlFromVideo(fileName: string, fileType: string) {
     }
 
 }
-export async function updateUser(prevState: any, form: FormData) {
-    const newUser: NewUser = {
-        username: form.get('username') as string,
-        hashtags: form.get('hashtags') as string,
-    }
-    const results = NewUserSchema.safeParse(newUser);
+const UpdateUserSchema = NewUserSchema.merge(z.object({hashtags: z.string().array().optional().refine((tags) => tags?.every((tag) => tag.startsWith('#')), {
+    message: 'hashTags must start with #',
+  }),
+}));
+
+export async function updateUser(prevState: any, newUser: NewUser) {
+    const results = UpdateUserSchema.safeParse(newUser);
     if(!results.success) {
         return results.error.flatten();
     }

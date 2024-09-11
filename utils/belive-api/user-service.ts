@@ -22,14 +22,15 @@ class UserServiceClass extends WithAuth {
     }
     public async updateUser(user: NewUser) {
         const URL = `${this.BASE_URL}/me`;
-        const response = await this.fetch(URL, {
+        const resp = await this.fetch(URL, {
             method: "PUT",
             body: JSON.stringify(user),
             headers: {
                 "Content-Type": "application/json"
             }
         });
-        return await response.json();
+        const text = await resp.text();
+        console.log(text);
     }
     public async getAvatarUploadUrl(fileType: string) {
         const URL = `${this.BASE_URL}/avatar`;
