@@ -27,6 +27,7 @@ import { deleteVod } from "./actions";
     data,
   }: DataTableProps<TData, TValue>) {
     const [rowSelection, setRowSelection] = useState({})
+    const [isEditingVideo, setIsEditingVideo] = useState<Record<string,boolean>>({});
     const table = useReactTable({
       data,
       columns,
@@ -35,6 +36,15 @@ import { deleteVod } from "./actions";
       getRowId: row => (row as any).id,
       state: {
         rowSelection
+      },
+      meta: {
+        setIsEditingVideo: (id: string, isEditing: boolean) => {
+          setIsEditingVideo((prev) => ({ ...prev, [id]: isEditing }));
+        },
+        isEditingVideo: isEditingVideo,
+        saveVideo: (id: string, row: any) => {
+
+        },
       }
     })
     const deleteVideos = async () => {
