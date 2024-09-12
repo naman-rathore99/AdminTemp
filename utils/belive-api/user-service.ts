@@ -30,7 +30,6 @@ class UserServiceClass extends WithAuth {
             }
         });
         const text = await resp.text();
-        console.log(text);
     }
     public async getAvatarUploadUrl(fileType: string) {
         const URL = `${this.BASE_URL}/avatar`;

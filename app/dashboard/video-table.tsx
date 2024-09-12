@@ -15,7 +15,7 @@ import {
   } from "@/components/ui/table"
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { deleteVod } from "./actions";
+import { deleteVod, updateVod } from "./actions";
 
   interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -28,6 +28,7 @@ import { deleteVod } from "./actions";
   }: DataTableProps<TData, TValue>) {
     const [rowSelection, setRowSelection] = useState({})
     const [isEditingVideo, setIsEditingVideo] = useState<Record<string,boolean>>({});
+    const [updatedRows, setUpdatedRows] = useState<Record<string, any>>({});
     const table = useReactTable({
       data,
       columns,
@@ -42,9 +43,13 @@ import { deleteVod } from "./actions";
           setIsEditingVideo((prev) => ({ ...prev, [id]: isEditing }));
         },
         isEditingVideo: isEditingVideo,
-        saveVideo: (id: string, row: any) => {
-
+        saveVideo: async (row: any) => {
+          await updateVod(updatedRows[row.id]);
+          setIsEditingVideo((prev) => ({ ...prev, [row.id]: false }));
         },
+        setUpdatedRows: (id: string, row: any) => {
+          setUpdatedRows((prev) => ({ ...prev, [id]: row }));
+        }
       }
     })
     const deleteVideos = async () => {

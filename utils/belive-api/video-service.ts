@@ -13,7 +13,6 @@ class VideoServiceClass extends WithAuth {
                 "Content-Type": "application/json"
             }
         });
-        console.log(JSON.stringify(response));
         return await response.text();
     }
     public async getVods() {
@@ -25,6 +24,16 @@ class VideoServiceClass extends WithAuth {
         const URL = `${this.BASE_URL}/${id}`;
         await this.fetch(URL, {
             method: "DELETE"
+        });
+    }
+    public async updateVod(video: any) {
+        const URL = `${this.BASE_URL}/${video.id}`;
+        await this.fetch(URL, {
+            method: "PUT",
+            body: JSON.stringify(video),
+            headers: {
+                "Content-Type": "application/json"
+            }
         });
     }
 

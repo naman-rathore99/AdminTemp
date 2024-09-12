@@ -16,7 +16,10 @@ type Video = {
 type Meta = {
     setIsEditingVideo: (id: string, isEditing: boolean) => void;
     isEditingVideo: Record<string, boolean>;
+    saveVideo: (row: any) => void;
+    setUpdatedRows: (id: string, row: any) => void;
 }
+
  
 export const columns: ColumnDef<Video>[] = [
   {
@@ -26,7 +29,7 @@ export const columns: ColumnDef<Video>[] = [
   {
     accessorKey: "hashtags",
     header: "Hashtags",
-    cell: ({ column, row, table }) =>  (
+    cell: ({ column, row, table, getValue }) =>  (
       <div>
         {!(table.options.meta as Meta)?.isEditingVideo[row.id] &&
         (row.getValue(column.id) as string[])?.map((hashtag, index) => (
@@ -34,7 +37,7 @@ export const columns: ColumnDef<Video>[] = [
         ))}
 
         {(table.options.meta as Meta)?.isEditingVideo[row.id] &&
-          <Input type="text" defaultValue={(row.getValue(column.id) as string[])?.join(' ')} />  
+          <Input type="text" onChange={(e)=>(table.options.meta as Meta).setUpdatedRows(row.id, {...row.original, hashtags:e.target.value.split(' ') }) } defaultValue={(row.getValue(column.id) as string[])?.join(' ')} />  
         }
       </div>
     )
@@ -46,13 +49,11 @@ export const columns: ColumnDef<Video>[] = [
       <>
       {!(table.options.meta as Meta)?.isEditingVideo[row.id] &&   <Button
         onClick={() => (table.options.meta as Meta)?.setIsEditingVideo(row.id, true)}
-        // onClick={() => console.log(JSON.stringify(table.options.meta))}
         variant="outline"
         aria-label="Select row"
       >Edit</Button>}
         {(table.options.meta as Meta)?.isEditingVideo[row.id] &&   <Button
-        onClick={() => (table.options.meta as Meta)?.setIsEditingVideo(row.id, false)}
-        // onClick={() => console.log(JSON.stringify(table.options.meta))}
+        onClick={() => (table.options.meta as Meta)?.saveVideo(row.original)}
         variant="default"
         aria-label="Select row"
       >Save</Button>}

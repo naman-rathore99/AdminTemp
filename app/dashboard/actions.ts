@@ -8,8 +8,6 @@ import { z } from "zod";
 export async function getUrlFromVideo(fileName: string, fileType: string) {
     try {
         const url = await VideoService.getUploadLink(fileName, fileType);
-        console.log('filename', fileName );
-        console.log('url', url);
         return url;
     } catch (error) {
         console.error('Error getting URL from video', error);
@@ -44,4 +42,9 @@ export async function getAvatarUploadUrl(fileType: string) {
         console.error('Error getting avatar upload URL', error);
         return '';
     }
+}
+
+export async function updateVod(video: any) {
+    await VideoService.updateVod(video);
+    revalidatePath('/dashboard');
 }
