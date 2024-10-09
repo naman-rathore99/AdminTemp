@@ -15,10 +15,12 @@ class VideoServiceClass extends WithAuth {
         });
         return await response.text();
     }
-    public async getVods() {
-        const URL = `${this.BASE_URL}`;
+    public async getVods(id: string) {
+        const URL = `${this.HOST}/users/${id}/vods`;
         const response = await this.fetch(URL);
-        return await response.json();
+        const data = await response.json();
+        const { vods } = data;
+        return vods;
     }
     public async deleteVodById(id: string) {
         const URL = `${this.BASE_URL}/${id}`;

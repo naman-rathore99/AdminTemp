@@ -9,7 +9,7 @@ import { EditProfile } from "./edit-profile";
 
 export default async function DashboardPage() {
     const user = await UserService.getUser();
-    const vods = await VideoService.getVods();
+    const vods = await VideoService.getVods(user.id);
 
   return (
     <main className="">
