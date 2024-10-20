@@ -2,7 +2,7 @@ import { WithAuth } from "../fetch/with-auth";
 
 class VideoServiceClass extends WithAuth {
     HOST = process.env.BELIVE_API ?? "http://localhost:3001";
-    BASE_URL = `${this.HOST}/vods`;
+    BASE_URL = `${this.HOST}/posts`;
 
    public async getUploadLink(fileName: string, fileType: string) {
         const URL = `${this.BASE_URL}/upload`;
