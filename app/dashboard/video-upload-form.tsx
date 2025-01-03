@@ -1,12 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { FileUploader } from "react-drag-drop-files";
 import { useState } from "react";
 import { getUrlFromVideo } from "./actions";
 import axios from "axios";
-import { Progress } from "@/components/ui/progress";
 import { useRouter } from "next/navigation";
+import { Card, CardContent } from "../../components/ui/card";
+import { Progress } from "../../components/ui/progress";
 
 function UploadBox() {
   return (

@@ -1,26 +1,22 @@
-'use client';
-
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
+'use client'
 import { ColumnDef } from "@tanstack/react-table"
- 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Checkbox } from "../../components/ui/checkbox";
 
 type Video = {
-    title: string;
-    url: string;
-    hashtags: string[];
-}
-type Meta = {
-    setIsEditingVideo: (id: string, isEditing: boolean) => void;
-    isEditingVideo: Record<string, boolean>;
-    saveVideo: (row: any) => void;
-    setUpdatedRows: (id: string, row: any) => void;
+  title: string;
+  url: string;
+  hashtags: string[];
 }
 
- 
+type Meta = {
+  setIsEditingVideo: (id: string, isEditing: boolean) => void;
+  isEditingVideo: Record<string, boolean>;
+  saveVideo: (row: any) => void;
+  setUpdatedRows: (id: string, row: any) => void;
+}
+
 export const columns: ColumnDef<Video>[] = [
   {
     accessorKey: "title",
@@ -29,34 +25,50 @@ export const columns: ColumnDef<Video>[] = [
   {
     accessorKey: "hashtags",
     header: "Hashtags",
-    cell: ({ column, row, table, getValue }) =>  (
+    cell: ({ column, row, table }) => (
       <div>
         {!(table.options.meta as Meta)?.isEditingVideo[row.id] &&
-        (row.getValue(column.id) as string[])?.map((hashtag, index) => (
-          <span key={index} className="text-sm text-gray-500 mr-2">{hashtag}</span>
-        ))}
-
-        {(table.options.meta as Meta)?.isEditingVideo[row.id] &&
-          <Input type="text" onChange={(e)=>(table.options.meta as Meta).setUpdatedRows(row.id, {...row.original, hashtags:e.target.value.split(' ') }) } defaultValue={(row.getValue(column.id) as string[])?.join(' ')} />  
-        }
+          (row.getValue(column.id) as string[])?.map((hashtag, index) => (
+            <span key={index} className="text-sm text-gray-500 mr-2">{hashtag}</span>
+          ))}
+        
+        {(table.options.meta as Meta)?.isEditingVideo[row.id] && (
+          <Input
+            type="text"
+            onChange={(e) =>
+              (table.options.meta as Meta).setUpdatedRows(row.id, {
+                ...row.original,
+                hashtags: e.target.value.split(' '),
+              })
+            }
+            defaultValue={(row.getValue(column.id) as string[])?.join(' ')}
+          />
+        )}
       </div>
-    )
+    ),
   },
-  
   {
     id: "edit",
-    cell: ({ row, table}) => (
+    cell: ({ row, table }) => (
       <>
-      {!(table.options.meta as Meta)?.isEditingVideo[row.id] &&   <Button
-        onClick={() => (table.options.meta as Meta)?.setIsEditingVideo(row.id, true)}
-        variant="outline"
-        aria-label="Select row"
-      >Edit</Button>}
-        {(table.options.meta as Meta)?.isEditingVideo[row.id] &&   <Button
-        onClick={() => (table.options.meta as Meta)?.saveVideo(row.original)}
-        variant="default"
-        aria-label="Select row"
-      >Save</Button>}
+        {!(table.options.meta as Meta)?.isEditingVideo[row.id] && (
+          <Button
+            onClick={() => (table.options.meta as Meta)?.setIsEditingVideo(row.id, true)}
+            variant="outline"
+            aria-label="Select row"
+          >
+            Edit
+          </Button>
+        )}
+        {(table.options.meta as Meta)?.isEditingVideo[row.id] && (
+          <Button
+            onClick={() => (table.options.meta as Meta)?.saveVideo(row.original)}
+            variant="default"
+            aria-label="Select row"
+          >
+            Save
+          </Button>
+        )}
       </>
     ),
     enableSorting: false,
@@ -67,8 +79,11 @@ export const columns: ColumnDef<Video>[] = [
     header: ({ table }) => (
       <Checkbox
         checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          table.getIsAllPageRowsSelected()
+            ? true
+            : table.getIsSomePageRowsSelected()
+            ? "indeterminate"
+            : false
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
@@ -84,4 +99,4 @@ export const columns: ColumnDef<Video>[] = [
     enableSorting: false,
     enableHiding: false,
   },
-]
+];

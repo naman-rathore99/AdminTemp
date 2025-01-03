@@ -1,9 +1,9 @@
 'use server';
-import { UserService } from "@/utils/belive-api/user-service";
-import { VideoService } from "@/utils/belive-api/video-service";
-import { NewUser, NewUserSchema } from "@/schemas/new-user.schema";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { VideoService } from "../../utils/belive-api/video-service";
+import { NewUser, NewUserSchema } from "../../schemas/new-user.schema";
+import { UserService } from "../../utils/belive-api/user-service";
 
 export async function getUrlFromVideo(fileName: string, fileType: string) {
     try {
