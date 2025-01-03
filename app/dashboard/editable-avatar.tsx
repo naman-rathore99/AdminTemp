@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, ChangeEvent } from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from '../../components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 
 export default function EditableAvatar({src, isEditing, setAvatarFile} : {src: string, isEditing: boolean, setAvatarFile: (file: File) => void}) {

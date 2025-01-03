@@ -1,27 +1,15 @@
-'use client';
-
-import { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation'; // For Next.js App Router
+import { forgotPasswordAction } from "@/app/actions";
+import { FormMessage, Message } from "@/components/form-message";
+import { SubmitButton } from "@/components/submit-button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { FormMessage, Message } from "../../../components/form-message";
-import { Label } from "../../../components/ui/label";
-import { forgotPasswordAction } from "../../actions";
-import { Input } from "../../../components/ui/input";
-import { SubmitButton } from "../../../components/submit-button";
 
-export default function ForgotPassword() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ForgotPasswordContent />
-    </Suspense>
-  );
-}
-
-function ForgotPasswordContent() {
-  const searchParams = useSearchParams();
-  const message = searchParams.get('message');
-  const formMessage: Message | undefined = message ? { message } : undefined;
-
+export default function ForgotPassword({
+  searchParams,
+}: {
+  searchParams: Message;
+}) {
   return (
     <>
       <form className="flex-1 flex flex-col w-full gap-2 text-foreground [&>input]:mb-6 min-w-64 max-w-64 mx-auto">
@@ -40,7 +28,7 @@ function ForgotPasswordContent() {
           <SubmitButton formAction={forgotPasswordAction}>
             Reset Password
           </SubmitButton>
-          {formMessage && <FormMessage message={formMessage} />}
+          <FormMessage message={searchParams} />
         </div>
       </form>
     </>

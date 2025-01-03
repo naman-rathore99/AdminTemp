@@ -12,22 +12,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../components/ui/form";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { NewUserSchema, type NewUser } from "@/schemas/new-user.schema";
 import { RefObject } from "react";
 import { updateUser } from "./actions";
-import { Input } from "../../components/ui/input";
-import { NewUser, NewUserSchema } from "../../schemas/new-user.schema";
  
 
-export function CreateUserForm({
-  formRef,
-  user,
-  setIsEditing,
-}: {
-  formRef: React.RefObject<HTMLFormElement | null>; 
-  user: any;
-  setIsEditing: (value: boolean) => void;
-}) {  const [formState, createUserAction] = useFormState<any, any>(updateUser, { errors: {} }, "");
+export function CreateUserForm({formRef, user, setIsEditing}: {formRef: RefObject<HTMLFormElement>, user: any, setIsEditing: (value: boolean) => void}) {
+  const [formState, createUserAction] = useFormState<any, any>(updateUser, { errors: {} }, "");
 
     const form = useForm<NewUser>({
         resolver: zodResolver(NewUserSchema),
