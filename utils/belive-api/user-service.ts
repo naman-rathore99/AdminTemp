@@ -1,4 +1,4 @@
-import {type NewUser } from "../../schemas/new-user.schema";
+import { type NewUser } from "@/schemas/new-user.schema";
 import { WithAuth } from "../fetch/with-auth";
 
 class UserServiceClass extends WithAuth {

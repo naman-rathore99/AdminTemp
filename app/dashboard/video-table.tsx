@@ -6,18 +6,16 @@ import {
     useReactTable,
   } from "@tanstack/react-table";
   import {
-
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
-  } from "../../components/ui/table";
+  } from "@/components/ui/table"
 import { useState } from "react";
-import { Button } from "../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import { deleteVod, updateVod } from "./actions";
-
 
   interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]

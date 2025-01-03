@@ -1,8 +1,8 @@
-import { createClient } from "../supabase/server";
+import { createClient } from "@/utils/supabase/server";
 
 export class WithAuth {
     protected async fetch(url: string, config?: any) {
-        const supabase =await createClient();
+        const supabase = createClient();
         const {data: {session} } = await supabase.auth.getSession();
         const access_token = session?.access_token;
         const headers = {
