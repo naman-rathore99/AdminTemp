@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { IAgency } from "@/interface/IAgency";
-import { fetchAgencyById, fetchAllAgencies } from "../actions/agencyActions";
+import { fetchAgencyById, fetchAllAgencies,createNewAgency } from "../actions/agencyActions";
 
 export const useAgency = () => {
     const queryClient = useQueryClient();
@@ -21,10 +21,22 @@ export const useAgency = () => {
         }
     });
 
+    const createAgency = useMutation({
+        mutationFn: (agency: IAgency) => createNewAgency(agency),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['agencies'] });
+        },
+        onError: (error: any) => {
+            console.log("Error creating agency",error);
+            throw error;
+        }
+    });
+
     return {
         isLoading,
         error,
         agencies,
-        getAgencyById
+        getAgencyById,
+        createAgency
     };
 };

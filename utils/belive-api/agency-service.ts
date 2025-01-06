@@ -16,7 +16,7 @@ class AgencyServiceClass {
     };
     
     public createAgency = async (agencyData: any) => {
-        const response = await axiosInstance.post('/admin/agency', agencyData);
+        const response = await axiosInstance.post('/admin/agency/create', agencyData);
         return response.data;
     };
 

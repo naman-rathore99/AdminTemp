@@ -265,10 +265,10 @@ const Profile = () => {
                 <p className=""> {formData.username}</p>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-2 items-center w-[80%] md:justify-between px-4">
-                <Button className="p-2 px-4 text-center font-bold -2 rounded-xl">
+              <div className="flex flex-wrap justify-center gap-2 items-center  md:justify-between px-4">
+                <div className="p-2 px-4 text-center font-bold -2 border-black border text-black border-1 rounded-xl">
                   {formData.agencyId || "N/A"}
-                </Button>
+                </div>
 
                 <div className="flex flex-col  text-black gap-2 items-center">
                   <p>
@@ -283,7 +283,7 @@ const Profile = () => {
                       className="hidden"
                     />
                     <span
-                      className={`relative inline-block w-12 h-6 rounded-full transition duration-200 ${isChecked ? "bg-blue-600" : "bg-gray-300"
+                      className={`relative inline-block w-12 h-6 rounded-full transition duration-200 ${isChecked ? "bg-green-600" : "bg-gray-300"
                         }`}
                     >
                       <span
@@ -396,7 +396,7 @@ const Profile = () => {
                         className="hidden"
                       />
                       <span
-                        className={`relative inline-block w-12 h-6 rounded-full transition duration-200 ${isVerified ? "bg-blue-600" : "bg-gray-300"
+                        className={`relative inline-block w-12 h-6 rounded-full transition duration-200 ${isVerified ? "bg-green-600" : "bg-gray-300"
                           }`}
                       >
                         <span
@@ -418,7 +418,7 @@ const Profile = () => {
               </div>
               <div className="-mx-3 flex flex-wrap">
 
-              <InputField label="Followers Count"
+              <InputField label="Total Hours Streamed"
                   name="totalHourStreams"
                   type="number"
                   noIcon

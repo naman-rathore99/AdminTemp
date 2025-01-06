@@ -9,7 +9,7 @@ import { useAgency } from "@/utils/hooks/useAgency";
 
 const AgencyCard = ({ agency }: { agency: IAgency }) => (
   <Link href={`/dashboard/agencies/${agency.id}`}>
-    <div className="bg-white text-black shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl overflow-hidden flex flex-col h-full">
+    <div className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl overflow-hidden flex flex-col h-full">
       <div className="relative w-full pt-[75%]">
         <Image
           src={
@@ -23,8 +23,8 @@ const AgencyCard = ({ agency }: { agency: IAgency }) => (
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
       </div>
-      <div className="p-4 flex flex-col text-black items-center flex-grow">
-        <h3 className="text-lg md:text-xl text-black font-bold truncate">
+      <div className="p-4 flex flex-col items-center flex-grow">
+        <h3 className="text-lg md:text-xl font-bold truncate">
           {agency.username || agency.name}
         </h3>
         <p className="mt-2 text-sm text-gray-500 line-clamp-2">
@@ -92,10 +92,17 @@ const Agencies = () => {
 
   return (
     <div className="min-h-screen w-full p-4 md:p-6">
-      <div className="mb-6 md:mb-8">
-        <h1 className="text-white text-2xl md:text-3xl font-bold">Agencies</h1>
-      </div>
+      <div className="mb-6 md:mb-8 flex justify-between items-center">
+        <h1 className="text-white text-2xl md:text-3xl font-bold">Agency</h1>
 
+        <Link
+          href={'/dashboard/agencies/create'}
+          onClick={handlePrevious}
+          className="px-4 py-2 bg-[#A39160] text-white rounded-lg"
+        >
+          Add New Agency
+        </Link>
+      </div>
       {isLoading ? (
         <LoadingState />
       ) : (

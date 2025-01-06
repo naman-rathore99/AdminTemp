@@ -44,13 +44,13 @@ const FormField = ({
   isSelect?: boolean;
   options?: string[];
 }) => (
-  <div className="bg-gray-900 rounded-2xl p-4">
+  <div className="border border-[#A39160] rounded-2xl p-4">
     <div className="flex items-center space-x-3">
       <Image src={icon} alt={label} width={24} height={24} />
       <div className="flex-1">
         <p className="text-sm text-gray-500">{label}</p>
         {isSelect ? (
-          <select className="w-full bg-transparent text-white focus:outline-none">
+          <select className="w-full bg-transparent text-white focus:text-black hover:text-black focus:outline-none">
             {options.length > 0 ?
               options.map(option => (
                 <option key={option} value={option}>{option}</option>
@@ -121,7 +121,7 @@ const AgencyProfile = () => {
       <div className="w-full mx-auto space-y-8">
         <div className=" flex-col flex md:flex-row gap-10">
 
-          <div className="bg-white w-full  text-black md:w-1/3 rounded-3xl pb-4 flex flex-col items-center">
+          <div className="bg-white w-full text-black md:w-1/3 rounded-md pb-4 flex flex-col items-center">
             <div className="relative w-full h-60 mb-4">
               <Image
                 src={formData.avatar || "https://via.placeholder.com/150"}
@@ -131,9 +131,9 @@ const AgencyProfile = () => {
                 objectFit="cover"
               />
             </div>
-            <h2 className="text-xl font-bold ">{formData.name}</h2>
-            <p className="text-gray-400">{formData.username || "username@notfound"}</p>
-            <button className="mt-4 px-6 flex items-center  gap-2 py-2 border border-gray-600 rounded-full text-gray-400 hover:bg-gray-800 transition">
+            <h2 className="text-xl text-center font-bold ">{formData.name}</h2>
+            <p className="text-gray-700">{formData.username || "username@notfound"}</p>
+            <button className="mt-4 px-6 flex items-center  gap-2 py-2 border border-gray-600 rounded-full text-black hover:bg-gray-800 transition">
               <Mail />
               Message
             </button>
