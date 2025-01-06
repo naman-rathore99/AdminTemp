@@ -1,9 +1,25 @@
-import { type NewUser } from "@/schemas/new-user.schema";
+import {type NewUser } from "../../schemas/new-user.schema";
+import { axiosInstance } from "../fetch/axios";
 import { WithAuth } from "../fetch/with-auth";
 
 class UserServiceClass extends WithAuth {
-    HOST = process.env.BELIVE_API ?? "http://localhost:3001";
+    HOST = process.env.BELIVE_API!
     BASE_URL = `${this.HOST}/users`;
+
+
+
+    public async getAllUser() {
+        const URL = `/admin/users`;
+        const response = await  axiosInstance.get(URL);
+        return response.data;
+    }
+
+
+    public async getUserById(id:string) {
+        const URL = `/admin/users/${id}`;
+        const response = await  axiosInstance.get(URL);
+        return response.data;
+    }
 
    public async getUser() {
         const URL = `${this.BASE_URL}/me`;

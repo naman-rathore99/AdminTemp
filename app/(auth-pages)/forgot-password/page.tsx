@@ -28,7 +28,7 @@ export default function ForgotPassword({
           <SubmitButton formAction={forgotPasswordAction}>
             Reset Password
           </SubmitButton>
-          <FormMessage message={searchParams} />
+          <FormMessage message={searchParams as unknown as any} />
         </div>
       </form>
     </>
