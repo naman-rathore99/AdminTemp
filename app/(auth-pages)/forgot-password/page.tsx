@@ -8,8 +8,17 @@ import Link from "next/link";
 export default function ForgotPassword({
   searchParams,
 }: {
-  searchParams: Message;
+  searchParams: any;
 }) {
+  const message: Message | undefined = searchParams.success
+    ? { success: searchParams.success }
+    : searchParams.error
+    ? { error: searchParams.error }
+    : searchParams.message
+    ? { message: searchParams.message }
+    : undefined;
+
+
   return (
     <>
       <form className="flex-1 flex flex-col w-full gap-2 text-foreground [&>input]:mb-6 min-w-64 max-w-64 mx-auto">
@@ -28,7 +37,10 @@ export default function ForgotPassword({
           <SubmitButton formAction={forgotPasswordAction}>
             Reset Password
           </SubmitButton>
-          <FormMessage message={searchParams as unknown as any} />
+          {
+            message&&
+          <FormMessage message={message} />
+          }
         </div>
       </form>
     </>

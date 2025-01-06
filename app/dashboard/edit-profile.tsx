@@ -9,7 +9,7 @@ export function EditProfile({user}: {user: any}) {
   const [isEditing, setIsEditing] = useState(false);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const STATIC_URL = 'https://static.joinbelive.com/';
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null!); 
 
   const handleEditClick = () => {
     setIsEditing(true);

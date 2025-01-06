@@ -56,8 +56,8 @@ console.log("Error",err)
   }, [errorMessageFromQuery]);
 
   return (
-    <div className=" flex items-center justify-center bg-gray-800">
-      <div className="max-w-md w-full space-y-8 p-8 bg-transparent border-2 border-gray-700 text-white rounded-lg shadow">
+    <div className="w-full  mx-auto ">
+      <div className="max-w-md bg-gray-900 mx-auto  space-y-8 p-8  bg-transparen border-2 border-gray-700 text-white rounded-lg shadow">
         <h2 className="text-center text-3xl font-bold">Login</h2>
 
         {error && (

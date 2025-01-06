@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState, useEffect } from "react";
-import Charts from "../../../components/Chart/Chart";
 import Image from "next/image";
 import { useUsers } from "@/utils/hooks/useUsers";
 import { useParams } from "next/navigation";
@@ -10,7 +9,6 @@ import statusIcon from "@/public/icons/status.png";
 import verifyIcon from "@/public/icons/verify.png";
 
 import { IUser } from "@/interface/IUser";
-import { fetchUserById } from "@/utils/actions/userActions";
 import InputField from "../[id]/InputField";
 
 

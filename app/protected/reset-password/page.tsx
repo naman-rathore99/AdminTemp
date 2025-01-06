@@ -7,8 +7,19 @@ import { Label } from "@/components/ui/label";
 export default async function ResetPassword({
   searchParams,
 }: {
-  searchParams: Message;
-}) {
+  searchParams: any;
+
+})
+ {
+  const message: Message | undefined = searchParams.success
+  ? { success: searchParams.success }
+  : searchParams.error
+  ? { error: searchParams.error }
+  : searchParams.message
+  ? { message: searchParams.message }
+  : undefined;
+
+
   return (
     <form className="flex flex-col w-full max-w-md p-4 gap-2 [&>input]:mb-4">
       <h1 className="text-2xl font-medium">Reset password</h1>
@@ -32,7 +43,10 @@ export default async function ResetPassword({
       <SubmitButton formAction={resetPasswordAction}>
         Reset password
       </SubmitButton>
-      <FormMessage message={searchParams} />
+      {
+        message&&
+      <FormMessage message={message} />
+      }
     </form>
   );
 }
